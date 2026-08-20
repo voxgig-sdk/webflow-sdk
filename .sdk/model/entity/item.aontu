@@ -1,0 +1,136 @@
+# Entity: item
+
+main: kit: entity: item: {
+
+  alias: field: {}
+
+  fields: [
+    {
+      name: "cmsLocaleId"
+      req: false
+      type: "`$STRING`"
+    }
+    {
+      name: "fieldData"
+      req: false
+      type: "`$OBJECT`"
+    }
+    {
+      name: "id"
+      req: false
+      type: "`$STRING`"
+    }
+    {
+      name: "lastPublished"
+      req: false
+      type: "`$STRING`"
+    }
+    {
+      name: "lastUpdated"
+      req: false
+      type: "`$STRING`"
+    }
+  ]
+
+  id: {
+    field: "id"
+    name: "id"
+  }
+
+  name: "item"
+  op: {
+    list: {
+      name: "list"
+      points: [
+        {
+          args: {
+            params: [
+              {
+                kind: "param"
+                name: "collection_id"
+                orig: "collection_id"
+                reqd: true
+                type: "`$STRING`"
+              }
+            ]
+          }
+          method: "GET"
+          orig: "/collections/{collection_id}/items"
+          parts: [
+            "collections"
+            "{collection_id}"
+            "items"
+          ]
+          select: {
+            exist: [
+              "collection_id"
+            ]
+          }
+          transform: {
+            req: "`reqdata`"
+            res: "`body.items`"
+          }
+        }
+      ]
+    }
+    load: {
+      name: "load"
+      points: [
+        {
+          args: {
+            params: [
+              {
+                kind: "param"
+                name: "collection_id"
+                orig: "collection_id"
+                reqd: true
+                type: "`$STRING`"
+              }
+              {
+                kind: "param"
+                name: "id"
+                orig: "item_id"
+                reqd: true
+                type: "`$STRING`"
+              }
+            ]
+          }
+          method: "GET"
+          orig: "/collections/{collection_id}/items/{item_id}"
+          parts: [
+            "collections"
+            "{collection_id}"
+            "items"
+            "{id}"
+          ]
+          rename: {
+            param: {
+              item_id: "id"
+            }
+          }
+          select: {
+            exist: [
+              "collection_id"
+              "id"
+            ]
+          }
+          transform: {
+            req: "`reqdata`"
+            res: "`body.fieldData`"
+          }
+        }
+      ]
+    }
+  }
+
+  relations: {
+    ancestors: [
+      [
+        "collection"
+      ]
+    ]
+  }
+
+
+
+}

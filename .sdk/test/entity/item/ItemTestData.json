@@ -1,0 +1,40 @@
+{
+  "existing": {
+    "item": {
+      "ITEM00": {
+        "cmsLocaleId": "s32",
+        "fieldData": {},
+        "id": "ITEM00",
+        "lastPublished": "s35",
+        "lastUpdated": "s36",
+        "collection_id": "COLLECTION01"
+      },
+      "ITEM01": {
+        "cmsLocaleId": "s64",
+        "fieldData": {},
+        "id": "ITEM01",
+        "lastPublished": "s67",
+        "lastUpdated": "s68",
+        "collection_id": "COLLECTION01"
+      },
+      "ITEM02": {
+        "cmsLocaleId": "s96",
+        "fieldData": {},
+        "id": "ITEM02",
+        "lastPublished": "s99",
+        "lastUpdated": "s9a",
+        "collection_id": "COLLECTION01"
+      }
+    }
+  },
+  "new": {
+    "item": {
+      "item_ref01": {
+        "cmsLocaleId": "sc8",
+        "fieldData": {},
+        "lastPublished": "scb",
+        "lastUpdated": "scc"
+      }
+    }
+  }
+}

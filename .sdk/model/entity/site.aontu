@@ -1,0 +1,100 @@
+# Entity: site
+
+main: kit: entity: site: {
+
+  alias: field: {}
+
+  fields: [
+    {
+      name: "createdOn"
+      req: false
+      type: "`$STRING`"
+    }
+    {
+      name: "displayName"
+      req: false
+      type: "`$STRING`"
+    }
+    {
+      name: "id"
+      req: false
+      type: "`$STRING`"
+    }
+    {
+      name: "lastPublished"
+      req: false
+      type: "`$STRING`"
+    }
+    {
+      name: "shortName"
+      req: false
+      type: "`$STRING`"
+    }
+  ]
+
+  id: {
+    field: "id"
+    name: "id"
+  }
+
+  name: "site"
+  op: {
+    list: {
+      name: "list"
+      points: [
+        {
+          method: "GET"
+          orig: "/sites"
+          parts: [
+            "sites"
+          ]
+          transform: {
+            req: "`reqdata`"
+            res: "`body.sites`"
+          }
+        }
+      ]
+    }
+    load: {
+      name: "load"
+      points: [
+        {
+          args: {
+            params: [
+              {
+                kind: "param"
+                name: "id"
+                orig: "site_id"
+                reqd: true
+                type: "`$STRING`"
+              }
+            ]
+          }
+          method: "GET"
+          orig: "/sites/{site_id}"
+          parts: [
+            "sites"
+            "{id}"
+          ]
+          rename: {
+            param: {
+              site_id: "id"
+            }
+          }
+          select: {
+            exist: [
+              "id"
+            ]
+          }
+          transform: {
+            req: "`reqdata`"
+            res: "`body`"
+          }
+        }
+      ]
+    }
+  }
+
+
+
+}

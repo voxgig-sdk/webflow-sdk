@@ -1,0 +1,121 @@
+# Entity: collection
+
+main: kit: entity: collection: {
+
+  alias: field: {}
+
+  fields: [
+    {
+      name: "createdOn"
+      req: false
+      type: "`$STRING`"
+    }
+    {
+      name: "displayName"
+      req: false
+      type: "`$STRING`"
+    }
+    {
+      name: "id"
+      req: false
+      type: "`$STRING`"
+    }
+    {
+      name: "slug"
+      req: false
+      type: "`$STRING`"
+    }
+  ]
+
+  id: {
+    field: "id"
+    name: "id"
+  }
+
+  name: "collection"
+  op: {
+    list: {
+      name: "list"
+      points: [
+        {
+          args: {
+            params: [
+              {
+                kind: "param"
+                name: "site_id"
+                orig: "site_id"
+                reqd: true
+                type: "`$STRING`"
+              }
+            ]
+          }
+          method: "GET"
+          orig: "/sites/{site_id}/collections"
+          parts: [
+            "sites"
+            "{site_id}"
+            "collections"
+          ]
+          select: {
+            exist: [
+              "site_id"
+            ]
+          }
+          transform: {
+            req: "`reqdata`"
+            res: "`body.collections`"
+          }
+        }
+      ]
+    }
+    load: {
+      name: "load"
+      points: [
+        {
+          args: {
+            params: [
+              {
+                kind: "param"
+                name: "id"
+                orig: "collection_id"
+                reqd: true
+                type: "`$STRING`"
+              }
+            ]
+          }
+          method: "GET"
+          orig: "/collections/{collection_id}"
+          parts: [
+            "collections"
+            "{id}"
+          ]
+          rename: {
+            param: {
+              collection_id: "id"
+            }
+          }
+          select: {
+            exist: [
+              "id"
+            ]
+          }
+          transform: {
+            req: "`reqdata`"
+            res: "`body`"
+          }
+        }
+      ]
+    }
+  }
+
+  relations: {
+    ancestors: [
+      [
+        "site"
+      ]
+    ]
+  }
+
+
+
+}

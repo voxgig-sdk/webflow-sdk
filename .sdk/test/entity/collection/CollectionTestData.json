@@ -1,0 +1,36 @@
+{
+  "existing": {
+    "collection": {
+      "COLLECTION00": {
+        "createdOn": "s28",
+        "displayName": "s29",
+        "id": "COLLECTION00",
+        "slug": "s2b",
+        "site_id": "SITE01"
+      },
+      "COLLECTION01": {
+        "createdOn": "s50",
+        "displayName": "s51",
+        "id": "COLLECTION01",
+        "slug": "s53",
+        "site_id": "SITE01"
+      },
+      "COLLECTION02": {
+        "createdOn": "s78",
+        "displayName": "s79",
+        "id": "COLLECTION02",
+        "slug": "s7b",
+        "site_id": "SITE01"
+      }
+    }
+  },
+  "new": {
+    "collection": {
+      "collection_ref01": {
+        "createdOn": "sa0",
+        "displayName": "sa1",
+        "slug": "sa3"
+      }
+    }
+  }
+}

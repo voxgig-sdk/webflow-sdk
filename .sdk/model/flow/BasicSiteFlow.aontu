@@ -1,0 +1,44 @@
+# BasicSiteFlow
+
+main: kit: flow: BasicSiteFlow:
+{
+  entity: "site",
+  kind: "basic",
+  name: "BasicSiteFlow",
+  step: [
+    {
+      op: "list",
+      valid: [
+        {
+          apply: "ItemExists",
+          def: {
+            ref: "site_ref01"
+          }
+        }
+      ]
+    }
+
+    {
+      input: {
+        ref: "site_ref01",
+        srcdatavar: "site_ref01_data",
+        suffix: "_dt0"
+      }
+
+      match: {
+        id: "site01"
+      }
+
+      op: "load",
+      valid: [
+        {
+          apply: "TextFieldMark",
+          def: {
+            mark: "Mark01-site_ref01"
+          }
+        }
+      ]
+    }
+  ],
+  "key$": "BasicSiteFlow"
+}

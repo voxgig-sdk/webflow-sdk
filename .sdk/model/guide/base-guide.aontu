@@ -1,0 +1,42 @@
+# Guide
+
+guide: {
+  metrics: count: entity: 3
+  metrics: count: path: 6
+  metrics: count: method: 6
+
+  entity: collection: {
+    path: "/collections/{collection_id}": {
+      rename: param: "collection_id": *"id"
+      op: load: method: *GET
+    }
+    path: "/sites/{site_id}/collections": {
+      op: list: method: *GET
+      op: list: transform: res: *("`body.collections`")|top
+    }
+  }
+
+  entity: item: {
+    path: "/collections/{collection_id}/items": {
+      op: list: method: *GET
+      op: list: transform: res: *("`body.items`")|top
+    }
+    path: "/collections/{collection_id}/items/{item_id}": {
+      rename: param: "item_id": *"id"
+      op: load: method: *GET
+      op: load: transform: res: *("`body.fieldData`")|top
+    }
+  }
+
+  entity: site: {
+    path: "/sites": {
+      op: list: method: *GET
+      op: list: transform: res: *("`body.sites`")|top
+    }
+    path: "/sites/{site_id}": {
+      rename: param: "site_id": *"id"
+      op: load: method: *GET
+    }
+  }
+
+}

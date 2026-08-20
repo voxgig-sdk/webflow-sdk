@@ -1,0 +1,48 @@
+# BasicCollectionFlow
+
+main: kit: flow: BasicCollectionFlow:
+{
+  entity: "collection",
+  kind: "basic",
+  name: "BasicCollectionFlow",
+  step: [
+    {
+      match: {
+        site_id: "site01"
+      }
+
+      op: "list",
+      valid: [
+        {
+          apply: "ItemExists",
+          def: {
+            ref: "collection_ref01"
+          }
+        }
+      ]
+    }
+
+    {
+      input: {
+        ref: "collection_ref01",
+        srcdatavar: "collection_ref01_data",
+        suffix: "_dt0"
+      }
+
+      match: {
+        id: "collection01"
+      }
+
+      op: "load",
+      valid: [
+        {
+          apply: "TextFieldMark",
+          def: {
+            mark: "Mark01-collection_ref01"
+          }
+        }
+      ]
+    }
+  ],
+  "key$": "BasicCollectionFlow"
+}

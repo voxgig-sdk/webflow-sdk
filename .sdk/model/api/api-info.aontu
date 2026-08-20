@@ -1,0 +1,27 @@
+# API Information
+
+
+main: {
+  kit: {
+    info: {
+      description: "Read Webflow sites, their CMS collections, and collection items."
+      security: {
+        in: "header"
+        name: "Authorization"
+        prefix: "Bearer"
+        scheme: "bearerAuth"
+        type: "http"
+      }
+      servers: [
+        {
+          url: "https://api.webflow.com/v2"
+        }
+      ]
+      summary: "Read Webflow sites, their CMS collections, and collection items."
+      title: "Webflow Sites/Collections/Items API"
+      version: "2.0.0"
+      website: "https://webflow.com"
+    }
+  }
+}
+

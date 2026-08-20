@@ -1,0 +1,191 @@
+{
+  "openapi": "3.0.3",
+  "info": {
+    "title": "Webflow Sites/Collections/Items API",
+    "version": "2.0.0",
+    "description": "Read Webflow sites, their CMS collections, and collection items."
+  },
+  "servers": [
+    { "url": "https://api.webflow.com/v2" }
+  ],
+  "security": [
+    { "bearerAuth": [] }
+  ],
+  "paths": {
+    "/sites": {
+      "get": {
+        "operationId": "listSites",
+        "summary": "List sites",
+        "responses": {
+          "200": {
+            "description": "Sites",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "sites": {
+                      "type": "array",
+                      "items": { "$ref": "#/components/schemas/Site" }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/sites/{site_id}": {
+      "get": {
+        "operationId": "getSite",
+        "summary": "Retrieve a site",
+        "parameters": [
+          { "name": "site_id", "in": "path", "required": true, "schema": { "type": "string" } }
+        ],
+        "responses": {
+          "200": {
+            "description": "The requested site",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/Site" }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/sites/{site_id}/collections": {
+      "get": {
+        "operationId": "listCollections",
+        "summary": "List collections for a site",
+        "parameters": [
+          { "name": "site_id", "in": "path", "required": true, "schema": { "type": "string" } }
+        ],
+        "responses": {
+          "200": {
+            "description": "Collections",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "collections": {
+                      "type": "array",
+                      "items": { "$ref": "#/components/schemas/Collection" }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/collections/{collection_id}": {
+      "get": {
+        "operationId": "getCollection",
+        "summary": "Retrieve a collection",
+        "parameters": [
+          { "name": "collection_id", "in": "path", "required": true, "schema": { "type": "string" } }
+        ],
+        "responses": {
+          "200": {
+            "description": "The requested collection",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/Collection" }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/collections/{collection_id}/items": {
+      "get": {
+        "operationId": "listItems",
+        "summary": "List items in a collection",
+        "parameters": [
+          { "name": "collection_id", "in": "path", "required": true, "schema": { "type": "string" } }
+        ],
+        "responses": {
+          "200": {
+            "description": "Items",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "items": {
+                      "type": "array",
+                      "items": { "$ref": "#/components/schemas/Item" }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/collections/{collection_id}/items/{item_id}": {
+      "get": {
+        "operationId": "getItem",
+        "summary": "Retrieve a collection item",
+        "parameters": [
+          { "name": "collection_id", "in": "path", "required": true, "schema": { "type": "string" } },
+          { "name": "item_id", "in": "path", "required": true, "schema": { "type": "string" } }
+        ],
+        "responses": {
+          "200": {
+            "description": "The requested item",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/Item" }
+              }
+            }
+          }
+        }
+      }
+    }
+  },
+  "components": {
+    "securitySchemes": {
+      "bearerAuth": {
+        "type": "http",
+        "scheme": "bearer"
+      }
+    },
+    "schemas": {
+      "Site": {
+        "type": "object",
+        "properties": {
+          "id": { "type": "string" },
+          "displayName": { "type": "string" },
+          "shortName": { "type": "string" },
+          "lastPublished": { "type": "string" },
+          "createdOn": { "type": "string" }
+        }
+      },
+      "Collection": {
+        "type": "object",
+        "properties": {
+          "id": { "type": "string" },
+          "displayName": { "type": "string" },
+          "slug": { "type": "string" },
+          "createdOn": { "type": "string" }
+        }
+      },
+      "Item": {
+        "type": "object",
+        "properties": {
+          "id": { "type": "string" },
+          "cmsLocaleId": { "type": "string" },
+          "lastPublished": { "type": "string" },
+          "lastUpdated": { "type": "string" },
+          "fieldData": { "type": "object" }
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,37 @@
+{
+  "existing": {
+    "site": {
+      "SITE00": {
+        "createdOn": "s32",
+        "displayName": "s33",
+        "id": "SITE00",
+        "lastPublished": "s35",
+        "shortName": "s36"
+      },
+      "SITE01": {
+        "createdOn": "s64",
+        "displayName": "s65",
+        "id": "SITE01",
+        "lastPublished": "s67",
+        "shortName": "s68"
+      },
+      "SITE02": {
+        "createdOn": "s96",
+        "displayName": "s97",
+        "id": "SITE02",
+        "lastPublished": "s99",
+        "shortName": "s9a"
+      }
+    }
+  },
+  "new": {
+    "site": {
+      "site_ref01": {
+        "createdOn": "sc8",
+        "displayName": "sc9",
+        "lastPublished": "scb",
+        "shortName": "scc"
+      }
+    }
+  }
+}
