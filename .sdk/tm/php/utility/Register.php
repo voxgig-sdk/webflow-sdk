@@ -1,0 +1,70 @@
+<?php
+declare(strict_types=1);
+
+// Webflow SDK utility registration
+
+require_once __DIR__ . '/../core/UtilityType.php';
+require_once __DIR__ . '/Clean.php';
+require_once __DIR__ . '/Done.php';
+require_once __DIR__ . '/MakeError.php';
+require_once __DIR__ . '/FeatureAdd.php';
+require_once __DIR__ . '/FeatureHook.php';
+require_once __DIR__ . '/FeatureInit.php';
+require_once __DIR__ . '/Fetcher.php';
+require_once __DIR__ . '/MakeFetchDef.php';
+require_once __DIR__ . '/MakeContext.php';
+require_once __DIR__ . '/MakeOptions.php';
+require_once __DIR__ . '/MakeRequest.php';
+require_once __DIR__ . '/MakeResponse.php';
+require_once __DIR__ . '/MakeResult.php';
+require_once __DIR__ . '/MakePoint.php';
+require_once __DIR__ . '/MakeSpec.php';
+require_once __DIR__ . '/MakeUrl.php';
+require_once __DIR__ . '/Param.php';
+require_once __DIR__ . '/PrepareAuth.php';
+require_once __DIR__ . '/PrepareBody.php';
+require_once __DIR__ . '/Graphql.php';
+require_once __DIR__ . '/PrepareHeaders.php';
+require_once __DIR__ . '/PrepareMethod.php';
+require_once __DIR__ . '/PrepareParams.php';
+require_once __DIR__ . '/PreparePath.php';
+require_once __DIR__ . '/PrepareQuery.php';
+require_once __DIR__ . '/ResultBasic.php';
+require_once __DIR__ . '/ResultBody.php';
+require_once __DIR__ . '/ResultHeaders.php';
+require_once __DIR__ . '/TransformRequest.php';
+require_once __DIR__ . '/TransformResponse.php';
+
+WebflowUtility::setRegistrar(function (WebflowUtility $u): void {
+    $u->clean = [WebflowClean::class, 'call'];
+    $u->done = [WebflowDone::class, 'call'];
+    $u->make_error = [WebflowMakeError::class, 'call'];
+    $u->feature_add = [WebflowFeatureAdd::class, 'call'];
+    $u->feature_hook = [WebflowFeatureHook::class, 'call'];
+    $u->feature_init = [WebflowFeatureInit::class, 'call'];
+    $u->fetcher = [WebflowFetcher::class, 'call'];
+    $u->make_fetch_def = [WebflowMakeFetchDef::class, 'call'];
+    $u->make_context = [WebflowMakeContext::class, 'call'];
+    $u->make_options = [WebflowMakeOptions::class, 'call'];
+    $u->make_request = [WebflowMakeRequest::class, 'call'];
+    $u->make_response = [WebflowMakeResponse::class, 'call'];
+    $u->make_result = [WebflowMakeResult::class, 'call'];
+    $u->make_point = [WebflowMakePoint::class, 'call'];
+    $u->make_spec = [WebflowMakeSpec::class, 'call'];
+    $u->make_url = [WebflowMakeUrl::class, 'call'];
+    $u->param = [WebflowParam::class, 'call'];
+    $u->prepare_auth = [WebflowPrepareAuth::class, 'call'];
+    $u->prepare_body = [WebflowPrepareBody::class, 'call'];
+    $u->prepare_headers = [WebflowPrepareHeaders::class, 'call'];
+    $u->prepare_method = [WebflowPrepareMethod::class, 'call'];
+    $u->prepare_params = [WebflowPrepareParams::class, 'call'];
+    $u->prepare_path = [WebflowPreparePath::class, 'call'];
+    $u->prepare_query = [WebflowPrepareQuery::class, 'call'];
+    $u->graphql_body = [WebflowGraphql::class, 'body'];
+    $u->graphql_errors = [WebflowGraphql::class, 'errors'];
+    $u->result_basic = [WebflowResultBasic::class, 'call'];
+    $u->result_body = [WebflowResultBody::class, 'call'];
+    $u->result_headers = [WebflowResultHeaders::class, 'call'];
+    $u->transform_request = [WebflowTransformRequest::class, 'call'];
+    $u->transform_response = [WebflowTransformResponse::class, 'call'];
+});

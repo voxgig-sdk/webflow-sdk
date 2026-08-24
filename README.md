@@ -10,6 +10,8 @@ This is an unofficial SDK for the Webflow Sites/Collections/Items public API, ge
 
 Learn more about Voxgig SDKs at [voxgig.com/sdk](https://voxgig.com/sdk/).
 
+> TypeScript, Python, PHP, Golang, Lua, JavaScript SDKs, a CLI with an interactive REPL, and an MCP server for AI agents — all generated from one OpenAPI spec by [@voxgig/sdkgen](https://github.com/voxgig/sdkgen).
+
 ## Entities, not endpoints
 
 This SDK exposes the API as a small set of **semantic entities** — Collection, Item and Site — that you
@@ -49,11 +51,62 @@ const items = await client.Item().list()
 console.log(items)
 ```
 
+### Python
+
+```python
+client = WebflowSDK.test()
+items = client.Item().list()
+print(items)
+```
+
+### PHP
+
+```php
+// Seed fixture data so offline calls resolve without a live server.
+$client = WebflowSDK::test([
+    "entity" => ["item" => ["test01" => ["id" => "test01"]]],
+]);
+$items = $client->Item()->list();
+```
+
+### Golang
+
+```go
+client := sdk.Test()
+result, err := client.Item(nil).List(
+    nil, nil,
+)
+```
+
+### Lua
+
+```lua
+local client = sdk.test()
+local results, err = client:Item():list()
+```
+
+### JavaScript
+
+```js
+const client = WebflowSDK.test()
+const items = await client.Item().list()
+// items is an array of entities, populated with mock data
+// — call items[0].data() for the record itself
+console.log(items)
+```
+
 ## Packages
 
 | Language | Package | Install |
 | --- | --- | --- |
 | TypeScript | `@voxgig-sdk/webflow` | publish pending — [install from git tag](https://github.com/voxgig-sdk/webflow-sdk/releases) |
+| Python | `voxgig-sdk-webflow` | publish pending — [install from git tag](https://github.com/voxgig-sdk/webflow-sdk/releases) |
+| PHP | `voxgig-sdk/webflow` | publish pending — [install from git tag](https://github.com/voxgig-sdk/webflow-sdk/releases) |
+| Golang | `github.com/voxgig-sdk/webflow-sdk/go` | `go get github.com/voxgig-sdk/webflow-sdk/go@latest` |
+| Lua | `voxgig-sdk-webflow` | publish pending — [install from git tag](https://github.com/voxgig-sdk/webflow-sdk/releases) |
+| JavaScript | `@voxgig-sdk/webflow-js` | publish pending — [install from git tag](https://github.com/voxgig-sdk/webflow-sdk/releases) |
+| Go CLI | `github.com/voxgig-sdk/webflow-sdk/go-cli` | `go install github.com/voxgig-sdk/webflow-sdk/go-cli/cmd/webflow@latest` |
+| Go MCP server | `github.com/voxgig-sdk/webflow-sdk/go-mcp` | `go get github.com/voxgig-sdk/webflow-sdk/go-mcp@latest` |
 
 ## Quickstart
 
@@ -86,7 +139,31 @@ See the [TypeScript README](ts/README.md) for the full guide.
 
 | Surface | Path |
 | --- | --- |
-| **SDK** (TypeScript) | `ts/` |
+| **SDK** (TypeScript, Python, PHP, Golang, Lua, JavaScript) | `ts/` `py/` `php/` `go/` `lua/` `js/` |
+| **CLI** | `go-cli/` |
+| **MCP server** | `go-mcp/` |
+
+## Use it from an AI agent (MCP)
+
+The generated MCP server exposes every operation in this SDK as an
+[MCP](https://modelcontextprotocol.io) tool that Claude, Cursor or Cline
+can call directly. Build and register it:
+
+```bash
+cd go-mcp && go build -o webflow-mcp .
+```
+
+Then add it to your agent's MCP config (Claude Desktop, Cursor, etc.):
+
+```json
+{
+  "mcpServers": {
+    "webflow": {
+      "command": "/abs/path/to/webflow-mcp"
+    }
+  }
+}
+```
 
 ## Entities
 
@@ -100,6 +177,114 @@ The API exposes 3 entities:
 
 The operations available across these entities are **load**, **list** — see each entity's
 own list above for exactly which it supports.
+
+## Quickstart in other languages
+
+### Python
+
+```python
+import os
+from webflow_sdk import WebflowSDK
+
+client = WebflowSDK({
+    "apikey": os.environ.get("WEBFLOW_APIKEY"),
+})
+
+# List all collections (returns a list, raises on error)
+collections = client.Collection().list({"site_id": "example"})
+for collection in collections:
+    print(collection)
+
+# Load a specific collection (returns the record, raises on error)
+collection = client.Collection().load({"id": "example_id"})
+print(collection)
+```
+
+### PHP
+
+```php
+<?php
+require_once 'webflow_sdk.php';
+
+$client = new WebflowSDK([
+    "apikey" => getenv("WEBFLOW_APIKEY"),
+]);
+
+// List all collections (returns an array; throws on error)
+$collections = $client->Collection()->list();
+print_r($collections);
+
+// Load a specific collection (returns the ENTITY; call data_get() for the record; throws on error)
+$collection = $client->Collection()->load(["id" => "example_id"]);
+print_r($collection);
+```
+
+### Golang
+
+```go
+import sdk "github.com/voxgig-sdk/webflow-sdk/go"
+
+client := sdk.NewWebflowSDK(map[string]any{
+    "apikey": os.Getenv("WEBFLOW_APIKEY"),
+})
+
+// List all collections
+collections, err := client.Collection(nil).List(nil, nil)
+if err != nil {
+    panic(err)
+}
+fmt.Println(collections)
+
+// Load a specific item
+item, err := client.Item(nil).Load(
+    map[string]any{"collection_id": "example_collection_id", "id": "example_id"}, nil,
+)
+if err != nil {
+    panic(err)
+}
+fmt.Println(item)
+```
+
+### Lua
+
+```lua
+local sdk = require("webflow_sdk")
+
+local client = sdk.new({
+  apikey = os.getenv("WEBFLOW_APIKEY"),
+})
+
+-- List all collections
+local collections, err = client:Collection():list()
+print(collections)
+
+-- Load a specific collection
+local collection, err = client:Collection():load({ id = "example_id" })
+print(collection)
+```
+
+### JavaScript
+
+```js
+const { WebflowSDK } = require('@voxgig-sdk/webflow-js')
+
+const client = new WebflowSDK({
+  apikey: process.env.WEBFLOW_APIKEY,
+})
+
+// List all collections (returns an array)
+const collections = await client.Collection().list({ site_id: "example" })
+for (const collection of collections) {
+  console.log(collection)
+}
+
+// Load a specific item (returns the entity)
+const item = await client.Item().load({
+  collection_id: 'example_collection_id',
+  id: 'example_id',
+})
+console.log(item)
+```
 
 ## Direct and prepare
 
@@ -119,6 +304,59 @@ When the entity interface does not cover an endpoint, use `direct`:
 
 **TypeScript:**
 ```ts
+const result = await client.direct({
+  path: '/api/resource/{id}',
+  method: 'GET',
+  params: { id: 'example' },
+})
+if (result instanceof Error) {
+  throw result
+}
+console.log(result.data)
+```
+
+**Python:**
+```python
+result = client.direct({
+    "path": "/api/resource/{id}",
+    "method": "GET",
+    "params": {"id": "example"},
+})
+```
+
+**PHP:**
+```php
+$result = $client->direct([
+    "path" => "/api/resource/{id}",
+    "method" => "GET",
+    "params" => ["id" => "example"],
+]);
+```
+
+**Go:**
+```go
+result, err := client.Direct(map[string]any{
+    "path":   "/api/resource/{id}",
+    "method": "GET",
+    "params": map[string]any{"id": "example"},
+})
+if err != nil {
+    panic(err)
+}
+fmt.Println(result)
+```
+
+**Lua:**
+```lua
+local result, err = client:direct({
+  path = "/api/resource/{id}",
+  method = "GET",
+  params = { id = "example" },
+})
+```
+
+**JavaScript:**
+```js
 const result = await client.direct({
   path: '/api/resource/{id}',
   method: 'GET',
@@ -158,6 +396,11 @@ Pass custom features via the `extend` option at construction time.
 ## Per-language documentation
 
 - [TypeScript](ts/README.md)
+- [Python](py/README.md)
+- [PHP](php/README.md)
+- [Golang](go/README.md)
+- [Lua](lua/README.md)
+- [JavaScript](js/README.md)
 
 ## Upstream API
 
