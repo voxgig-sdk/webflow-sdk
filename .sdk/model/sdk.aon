@@ -34,9 +34,8 @@ def: 'webflow-sites-collections-items-only.json'
 @"flow/flow-index.aon"
 
 
-# Seneca provider plugin generates out-of-tree into the sibling repo.
-main: kit: target: 'seneca-provider': output: {
-  path: '../../seneca/webflow-provider'
-  sdkrel: '../../voxgig-sdk/webflow-sdk'
-}
-
+# Project overlay — user-owned, created once and never overwritten.
+#
+# LAST, deliberately: it may refine main.kit.target.<t>, and a target can only
+# be refined after target-index.aon has defined it.
+@"project.aon"
