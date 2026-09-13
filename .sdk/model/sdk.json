@@ -1,6 +1,15 @@
 {
+  "NAME": "WEBFLOW",
+  "Name": "Webflow",
   "def": "webflow-sites-collections-items-only.json",
   "main": {
+    "api": {
+      "entity": {},
+      "guide": {}
+    },
+    "custom": {
+      "plurals": {}
+    },
     "def": {
       "desc": ""
     },
@@ -1303,5 +1312,8 @@
     }
   },
   "name": "webflow",
+  "name-": "webflow",
+  "name_": "webflow",
+  "name__orig": "webflow",
   "origin": "voxgig-sdk"
 }
