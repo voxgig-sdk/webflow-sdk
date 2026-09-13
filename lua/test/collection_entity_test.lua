@@ -145,7 +145,7 @@ function collection_basic_setup(extra)
     ["WEBFLOW_TEST_COLLECTION_ENTID"] = idmap,
     ["WEBFLOW_TEST_LIVE"] = "FALSE",
     ["WEBFLOW_TEST_EXPLAIN"] = "FALSE",
-    ["WEBFLOW_APIKEY"] = "NONE",
+    ["WEBFLOW_APIKEY"] = "",
   })
 
   local idmap_resolved = helpers.to_map(
@@ -156,6 +156,9 @@ function collection_basic_setup(extra)
 
   if env["WEBFLOW_TEST_LIVE"] == "TRUE" then
     local merged_opts = vs.merge({
+      -- FIRST, so the generated fields below win: sdk-test-control.json's
+      -- test.client.options adds to the live client, it does not redirect it.
+      runner.live_client_options(),
       {
         apikey = env["WEBFLOW_APIKEY"],
       },

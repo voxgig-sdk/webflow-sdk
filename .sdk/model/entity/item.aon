@@ -56,10 +56,16 @@ main: kit: entity: item: {
           }
           method: "GET"
           orig: "/collections/{collection_id}/items"
-          parts: [
-            "collections"
-            "{collection_id}"
-            "items"
+          segments: [
+            {
+              lit: "collections"
+            }
+            {
+              var: "collection_id"
+            }
+            {
+              lit: "items"
+            }
           ]
           select: {
             exist: [
@@ -97,17 +103,25 @@ main: kit: entity: item: {
           }
           method: "GET"
           orig: "/collections/{collection_id}/items/{item_id}"
-          parts: [
-            "collections"
-            "{collection_id}"
-            "items"
-            "{id}"
-          ]
           rename: {
             param: {
               item_id: "id"
             }
           }
+          segments: [
+            {
+              lit: "collections"
+            }
+            {
+              var: "collection_id"
+            }
+            {
+              lit: "items"
+            }
+            {
+              var: "id"
+            }
+          ]
           select: {
             exist: [
               "collection_id"

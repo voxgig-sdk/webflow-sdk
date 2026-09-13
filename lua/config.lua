@@ -53,6 +53,10 @@ local function make_config()
             ["type"] = "`$STRING`",
           },
         },
+        ["id"] = {
+          ["field"] = "id",
+          ["name"] = "id",
+        },
         ["name"] = "collection",
         ["op"] = {
           ["list"] = {
@@ -74,10 +78,16 @@ local function make_config()
                 ["kind"] = "http",
                 ["method"] = "GET",
                 ["orig"] = "/sites/{site_id}/collections",
-                ["parts"] = {
-                  "sites",
-                  "{site_id}",
-                  "collections",
+                ["segments"] = {
+                  {
+                    ["lit"] = "sites",
+                  },
+                  {
+                    ["var"] = "site_id",
+                  },
+                  {
+                    ["lit"] = "collections",
+                  },
                 },
                 ["select"] = {
                   ["exist"] = {
@@ -87,6 +97,11 @@ local function make_config()
                 ["transform"] = {
                   ["req"] = "`reqdata`",
                   ["res"] = "`body.collections`",
+                },
+                ["parts"] = {
+                  "sites",
+                  "{site_id}",
+                  "collections",
                 },
               },
             },
@@ -110,13 +125,17 @@ local function make_config()
                 ["kind"] = "http",
                 ["method"] = "GET",
                 ["orig"] = "/collections/{collection_id}",
-                ["parts"] = {
-                  "collections",
-                  "{id}",
-                },
                 ["rename"] = {
                   ["param"] = {
                     ["collection_id"] = "id",
+                  },
+                },
+                ["segments"] = {
+                  {
+                    ["lit"] = "collections",
+                  },
+                  {
+                    ["var"] = "id",
                   },
                 },
                 ["select"] = {
@@ -127,6 +146,10 @@ local function make_config()
                 ["transform"] = {
                   ["req"] = "`reqdata`",
                   ["res"] = "`body`",
+                },
+                ["parts"] = {
+                  "collections",
+                  "{id}",
                 },
               },
             },
@@ -163,6 +186,10 @@ local function make_config()
             ["type"] = "`$STRING`",
           },
         },
+        ["id"] = {
+          ["field"] = "id",
+          ["name"] = "id",
+        },
         ["name"] = "item",
         ["op"] = {
           ["list"] = {
@@ -184,10 +211,16 @@ local function make_config()
                 ["kind"] = "http",
                 ["method"] = "GET",
                 ["orig"] = "/collections/{collection_id}/items",
-                ["parts"] = {
-                  "collections",
-                  "{collection_id}",
-                  "items",
+                ["segments"] = {
+                  {
+                    ["lit"] = "collections",
+                  },
+                  {
+                    ["var"] = "collection_id",
+                  },
+                  {
+                    ["lit"] = "items",
+                  },
                 },
                 ["select"] = {
                   ["exist"] = {
@@ -197,6 +230,11 @@ local function make_config()
                 ["transform"] = {
                   ["req"] = "`reqdata`",
                   ["res"] = "`body.items`",
+                },
+                ["parts"] = {
+                  "collections",
+                  "{collection_id}",
+                  "items",
                 },
               },
             },
@@ -227,15 +265,23 @@ local function make_config()
                 ["kind"] = "http",
                 ["method"] = "GET",
                 ["orig"] = "/collections/{collection_id}/items/{item_id}",
-                ["parts"] = {
-                  "collections",
-                  "{collection_id}",
-                  "items",
-                  "{id}",
-                },
                 ["rename"] = {
                   ["param"] = {
                     ["item_id"] = "id",
+                  },
+                },
+                ["segments"] = {
+                  {
+                    ["lit"] = "collections",
+                  },
+                  {
+                    ["var"] = "collection_id",
+                  },
+                  {
+                    ["lit"] = "items",
+                  },
+                  {
+                    ["var"] = "id",
                   },
                 },
                 ["select"] = {
@@ -247,6 +293,12 @@ local function make_config()
                 ["transform"] = {
                   ["req"] = "`reqdata`",
                   ["res"] = "`body.fieldData`",
+                },
+                ["parts"] = {
+                  "collections",
+                  "{collection_id}",
+                  "items",
+                  "{id}",
                 },
               },
             },
@@ -283,6 +335,10 @@ local function make_config()
             ["type"] = "`$STRING`",
           },
         },
+        ["id"] = {
+          ["field"] = "id",
+          ["name"] = "id",
+        },
         ["name"] = "site",
         ["op"] = {
           ["list"] = {
@@ -294,13 +350,18 @@ local function make_config()
                 ["kind"] = "http",
                 ["method"] = "GET",
                 ["orig"] = "/sites",
-                ["parts"] = {
-                  "sites",
+                ["segments"] = {
+                  {
+                    ["lit"] = "sites",
+                  },
                 },
                 ["select"] = {},
                 ["transform"] = {
                   ["req"] = "`reqdata`",
                   ["res"] = "`body.sites`",
+                },
+                ["parts"] = {
+                  "sites",
                 },
               },
             },
@@ -324,13 +385,17 @@ local function make_config()
                 ["kind"] = "http",
                 ["method"] = "GET",
                 ["orig"] = "/sites/{site_id}",
-                ["parts"] = {
-                  "sites",
-                  "{id}",
-                },
                 ["rename"] = {
                   ["param"] = {
                     ["site_id"] = "id",
+                  },
+                },
+                ["segments"] = {
+                  {
+                    ["lit"] = "sites",
+                  },
+                  {
+                    ["var"] = "id",
                   },
                 },
                 ["select"] = {
@@ -341,6 +406,10 @@ local function make_config()
                 ["transform"] = {
                   ["req"] = "`reqdata`",
                   ["res"] = "`body`",
+                },
+                ["parts"] = {
+                  "sites",
+                  "{id}",
                 },
               },
             },

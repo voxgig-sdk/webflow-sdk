@@ -15,6 +15,7 @@ const { WebflowEntityBase } = require('./WebflowEntityBase')
 const { BaseFeature } = require('./feature/base/BaseFeature')
 
 
+
 const stdutil = new Utility()
 
 
@@ -24,6 +25,7 @@ class WebflowSDK {
   _utility = new Utility()
   _features
   _rootctx
+  
 
   constructor(options) {
 
@@ -96,6 +98,8 @@ class WebflowSDK {
     return this._utility.struct.clone(this._utility)
   }
 
+  
+
 
   async prepare(fetchargs) {
     const utility = this._utility
@@ -141,6 +145,8 @@ class WebflowSDK {
         spec.headers[key] = uheaders[key]
       }
     }
+
+    
 
     // Apply SDK auth (apikey, auth prefix, etc.)
     const authResult = prepareAuth(ctx)
@@ -365,6 +371,7 @@ const SDK = WebflowSDK
 module.exports = {
   stdutil,
   config,
+  
 
   BaseFeature,
   WebflowEntityBase,

@@ -79,6 +79,10 @@ class WebflowConfig
               'type' => '`$STRING`',
             ],
           ],
+          'id' => [
+            'field' => 'id',
+            'name' => 'id',
+          ],
           'name' => 'collection',
           'op' => [
             'list' => [
@@ -100,10 +104,16 @@ class WebflowConfig
                   'kind' => 'http',
                   'method' => 'GET',
                   'orig' => '/sites/{site_id}/collections',
-                  'parts' => [
-                    'sites',
-                    '{site_id}',
-                    'collections',
+                  'segments' => [
+                    [
+                      'lit' => 'sites',
+                    ],
+                    [
+                      'var' => 'site_id',
+                    ],
+                    [
+                      'lit' => 'collections',
+                    ],
                   ],
                   'select' => [
                     'exist' => [
@@ -113,6 +123,11 @@ class WebflowConfig
                   'transform' => [
                     'req' => '`reqdata`',
                     'res' => '`body.collections`',
+                  ],
+                  'parts' => [
+                    'sites',
+                    '{site_id}',
+                    'collections',
                   ],
                 ],
               ],
@@ -136,13 +151,17 @@ class WebflowConfig
                   'kind' => 'http',
                   'method' => 'GET',
                   'orig' => '/collections/{collection_id}',
-                  'parts' => [
-                    'collections',
-                    '{id}',
-                  ],
                   'rename' => [
                     'param' => [
                       'collection_id' => 'id',
+                    ],
+                  ],
+                  'segments' => [
+                    [
+                      'lit' => 'collections',
+                    ],
+                    [
+                      'var' => 'id',
                     ],
                   ],
                   'select' => [
@@ -153,6 +172,10 @@ class WebflowConfig
                   'transform' => [
                     'req' => '`reqdata`',
                     'res' => '`body`',
+                  ],
+                  'parts' => [
+                    'collections',
+                    '{id}',
                   ],
                 ],
               ],
@@ -189,6 +212,10 @@ class WebflowConfig
               'type' => '`$STRING`',
             ],
           ],
+          'id' => [
+            'field' => 'id',
+            'name' => 'id',
+          ],
           'name' => 'item',
           'op' => [
             'list' => [
@@ -210,10 +237,16 @@ class WebflowConfig
                   'kind' => 'http',
                   'method' => 'GET',
                   'orig' => '/collections/{collection_id}/items',
-                  'parts' => [
-                    'collections',
-                    '{collection_id}',
-                    'items',
+                  'segments' => [
+                    [
+                      'lit' => 'collections',
+                    ],
+                    [
+                      'var' => 'collection_id',
+                    ],
+                    [
+                      'lit' => 'items',
+                    ],
                   ],
                   'select' => [
                     'exist' => [
@@ -223,6 +256,11 @@ class WebflowConfig
                   'transform' => [
                     'req' => '`reqdata`',
                     'res' => '`body.items`',
+                  ],
+                  'parts' => [
+                    'collections',
+                    '{collection_id}',
+                    'items',
                   ],
                 ],
               ],
@@ -253,15 +291,23 @@ class WebflowConfig
                   'kind' => 'http',
                   'method' => 'GET',
                   'orig' => '/collections/{collection_id}/items/{item_id}',
-                  'parts' => [
-                    'collections',
-                    '{collection_id}',
-                    'items',
-                    '{id}',
-                  ],
                   'rename' => [
                     'param' => [
                       'item_id' => 'id',
+                    ],
+                  ],
+                  'segments' => [
+                    [
+                      'lit' => 'collections',
+                    ],
+                    [
+                      'var' => 'collection_id',
+                    ],
+                    [
+                      'lit' => 'items',
+                    ],
+                    [
+                      'var' => 'id',
                     ],
                   ],
                   'select' => [
@@ -273,6 +319,12 @@ class WebflowConfig
                   'transform' => [
                     'req' => '`reqdata`',
                     'res' => '`body.fieldData`',
+                  ],
+                  'parts' => [
+                    'collections',
+                    '{collection_id}',
+                    'items',
+                    '{id}',
                   ],
                 ],
               ],
@@ -309,6 +361,10 @@ class WebflowConfig
               'type' => '`$STRING`',
             ],
           ],
+          'id' => [
+            'field' => 'id',
+            'name' => 'id',
+          ],
           'name' => 'site',
           'op' => [
             'list' => [
@@ -320,13 +376,18 @@ class WebflowConfig
                   'kind' => 'http',
                   'method' => 'GET',
                   'orig' => '/sites',
-                  'parts' => [
-                    'sites',
+                  'segments' => [
+                    [
+                      'lit' => 'sites',
+                    ],
                   ],
                   'select' => [],
                   'transform' => [
                     'req' => '`reqdata`',
                     'res' => '`body.sites`',
+                  ],
+                  'parts' => [
+                    'sites',
                   ],
                 ],
               ],
@@ -350,13 +411,17 @@ class WebflowConfig
                   'kind' => 'http',
                   'method' => 'GET',
                   'orig' => '/sites/{site_id}',
-                  'parts' => [
-                    'sites',
-                    '{id}',
-                  ],
                   'rename' => [
                     'param' => [
                       'site_id' => 'id',
+                    ],
+                  ],
+                  'segments' => [
+                    [
+                      'lit' => 'sites',
+                    ],
+                    [
+                      'var' => 'id',
                     ],
                   ],
                   'select' => [
@@ -367,6 +432,10 @@ class WebflowConfig
                   'transform' => [
                     'req' => '`reqdata`',
                     'res' => '`body`',
+                  ],
+                  'parts' => [
+                    'sites',
+                    '{id}',
                   ],
                 ],
               ],

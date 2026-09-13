@@ -196,14 +196,22 @@ func siteDirectSetup(mockres any) *siteDirectSetupResult {
 	env := envOverride(map[string]any{
 		"WEBFLOW_TEST_SITE_ENTID": map[string]any{},
 		"WEBFLOW_TEST_LIVE":    "FALSE",
-		"WEBFLOW_APIKEY":       "NONE",
+		"WEBFLOW_APIKEY":       "",
 	})
 
 	live := env["WEBFLOW_TEST_LIVE"] == "TRUE"
 
 	if live {
-		mergedOpts := map[string]any{
+		// sdk-test-control.json's test.client.options seeds the live
+		// client; the generated fields below overwrite anything they name.
+		mergedOpts := map[string]any{}
+		for k, v := range liveClientOptions() {
+			mergedOpts[k] = v
+		}
+		for k, v := range map[string]any{
 			"apikey": env["WEBFLOW_APIKEY"],
+		} {
+			mergedOpts[k] = v
 		}
 		client := sdk.NewWebflowSDK(mergedOpts)
 

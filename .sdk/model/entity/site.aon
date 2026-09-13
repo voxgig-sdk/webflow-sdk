@@ -45,8 +45,10 @@ main: kit: entity: site: {
         {
           method: "GET"
           orig: "/sites"
-          parts: [
-            "sites"
+          segments: [
+            {
+              lit: "sites"
+            }
           ]
           transform: {
             req: "`reqdata`"
@@ -72,15 +74,19 @@ main: kit: entity: site: {
           }
           method: "GET"
           orig: "/sites/{site_id}"
-          parts: [
-            "sites"
-            "{id}"
-          ]
           rename: {
             param: {
               site_id: "id"
             }
           }
+          segments: [
+            {
+              lit: "sites"
+            }
+            {
+              var: "id"
+            }
+          ]
           select: {
             exist: [
               "id"

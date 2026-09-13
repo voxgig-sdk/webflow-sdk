@@ -10,6 +10,17 @@ const FEATURE_CLASS: Record<string, typeof BaseFeature> = {
 }
 
 
+// Per-feature plugin DEFINITIONS (voxgig/plugin `Definition` values), from
+// the model's active plugin groups. A feature that takes a `plugins` option
+// (secrets over sekreto) reads its own entry; a feature with no plugins has
+// none. Named imports above make each definition statically reachable, so
+// an SDK carries exactly the plugin modules its model selects — the same
+// leanness the old side-effect registry imports bought, without a registry.
+const FEATURE_PLUGINS: Record<string, any[]> = {
+  
+}
+
+
 class Config {
 
   makeFeature(this: any, fn: string) {
@@ -93,6 +104,10 @@ class Config {
           "type": "`$STRING`"
         }
       ],
+      "id": {
+        "field": "id",
+        "name": "id"
+      },
       "name": "collection",
       "op": {
         "list": {
@@ -114,10 +129,16 @@ class Config {
               "kind": "http",
               "method": "GET",
               "orig": "/sites/{site_id}/collections",
-              "parts": [
-                "sites",
-                "{site_id}",
-                "collections"
+              "segments": [
+                {
+                  "lit": "sites"
+                },
+                {
+                  "var": "site_id"
+                },
+                {
+                  "lit": "collections"
+                }
               ],
               "select": {
                 "exist": [
@@ -127,7 +148,12 @@ class Config {
               "transform": {
                 "req": "`reqdata`",
                 "res": "`body.collections`"
-              }
+              },
+              "parts": [
+                "sites",
+                "{site_id}",
+                "collections"
+              ]
             }
           ]
         },
@@ -150,15 +176,19 @@ class Config {
               "kind": "http",
               "method": "GET",
               "orig": "/collections/{collection_id}",
-              "parts": [
-                "collections",
-                "{id}"
-              ],
               "rename": {
                 "param": {
                   "collection_id": "id"
                 }
               },
+              "segments": [
+                {
+                  "lit": "collections"
+                },
+                {
+                  "var": "id"
+                }
+              ],
               "select": {
                 "exist": [
                   "id"
@@ -167,7 +197,11 @@ class Config {
               "transform": {
                 "req": "`reqdata`",
                 "res": "`body`"
-              }
+              },
+              "parts": [
+                "collections",
+                "{id}"
+              ]
             }
           ]
         }
@@ -203,6 +237,10 @@ class Config {
           "type": "`$STRING`"
         }
       ],
+      "id": {
+        "field": "id",
+        "name": "id"
+      },
       "name": "item",
       "op": {
         "list": {
@@ -224,10 +262,16 @@ class Config {
               "kind": "http",
               "method": "GET",
               "orig": "/collections/{collection_id}/items",
-              "parts": [
-                "collections",
-                "{collection_id}",
-                "items"
+              "segments": [
+                {
+                  "lit": "collections"
+                },
+                {
+                  "var": "collection_id"
+                },
+                {
+                  "lit": "items"
+                }
               ],
               "select": {
                 "exist": [
@@ -237,7 +281,12 @@ class Config {
               "transform": {
                 "req": "`reqdata`",
                 "res": "`body.items`"
-              }
+              },
+              "parts": [
+                "collections",
+                "{collection_id}",
+                "items"
+              ]
             }
           ]
         },
@@ -267,17 +316,25 @@ class Config {
               "kind": "http",
               "method": "GET",
               "orig": "/collections/{collection_id}/items/{item_id}",
-              "parts": [
-                "collections",
-                "{collection_id}",
-                "items",
-                "{id}"
-              ],
               "rename": {
                 "param": {
                   "item_id": "id"
                 }
               },
+              "segments": [
+                {
+                  "lit": "collections"
+                },
+                {
+                  "var": "collection_id"
+                },
+                {
+                  "lit": "items"
+                },
+                {
+                  "var": "id"
+                }
+              ],
               "select": {
                 "exist": [
                   "collection_id",
@@ -287,7 +344,13 @@ class Config {
               "transform": {
                 "req": "`reqdata`",
                 "res": "`body.fieldData`"
-              }
+              },
+              "parts": [
+                "collections",
+                "{collection_id}",
+                "items",
+                "{id}"
+              ]
             }
           ]
         }
@@ -323,6 +386,10 @@ class Config {
           "type": "`$STRING`"
         }
       ],
+      "id": {
+        "field": "id",
+        "name": "id"
+      },
       "name": "site",
       "op": {
         "list": {
@@ -334,14 +401,19 @@ class Config {
               "kind": "http",
               "method": "GET",
               "orig": "/sites",
-              "parts": [
-                "sites"
+              "segments": [
+                {
+                  "lit": "sites"
+                }
               ],
               "select": {},
               "transform": {
                 "req": "`reqdata`",
                 "res": "`body.sites`"
-              }
+              },
+              "parts": [
+                "sites"
+              ]
             }
           ]
         },
@@ -364,15 +436,19 @@ class Config {
               "kind": "http",
               "method": "GET",
               "orig": "/sites/{site_id}",
-              "parts": [
-                "sites",
-                "{id}"
-              ],
               "rename": {
                 "param": {
                   "site_id": "id"
                 }
               },
+              "segments": [
+                {
+                  "lit": "sites"
+                },
+                {
+                  "var": "id"
+                }
+              ],
               "select": {
                 "exist": [
                   "id"
@@ -381,7 +457,11 @@ class Config {
               "transform": {
                 "req": "`reqdata`",
                 "res": "`body`"
-              }
+              },
+              "parts": [
+                "sites",
+                "{id}"
+              ]
             }
           ]
         }
@@ -397,6 +477,7 @@ class Config {
 const config = new Config()
 
 export {
-  config
+  config,
+  FEATURE_PLUGINS,
 }
 

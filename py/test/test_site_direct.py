@@ -107,15 +107,18 @@ def _site_direct_setup(mockres):
     env = runner.env_override({
         "WEBFLOW_TEST_SITE_ENTID": {},
         "WEBFLOW_TEST_LIVE": "FALSE",
-        "WEBFLOW_APIKEY": "NONE",
+        "WEBFLOW_APIKEY": "",
     })
 
     live = env.get("WEBFLOW_TEST_LIVE") == "TRUE"
 
     if live:
-        merged_opts = {
+        # sdk-test-control.json's test.client.options seeds the live
+        # client; the generated fields below overwrite anything they name.
+        merged_opts = dict(runner.live_client_options())
+        merged_opts.update({
             "apikey": env.get("WEBFLOW_APIKEY"),
-        }
+        })
         client = WebflowSDK(merged_opts)
         return {
             "client": client,

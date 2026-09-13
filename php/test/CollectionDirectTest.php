@@ -137,15 +137,17 @@ function collection_direct_setup($mockres)
     $env = Runner::env_override([
         "WEBFLOW_TEST_COLLECTION_ENTID" => [],
         "WEBFLOW_TEST_LIVE" => "FALSE",
-        "WEBFLOW_APIKEY" => "NONE",
+        "WEBFLOW_APIKEY" => "",
     ]);
 
     $live = $env["WEBFLOW_TEST_LIVE"] === "TRUE";
 
     if ($live) {
-        $merged_opts = [
+        // Merged so the generated fields win: sdk-test-control.json's
+        // test.client.options adds to the live client, it does not redirect it.
+        $merged_opts = array_merge(Runner::live_client_options(), [
             "apikey" => $env["WEBFLOW_APIKEY"],
-        ];
+        ]);
         $client = new WebflowSDK($merged_opts);
         return [
             "client" => $client,

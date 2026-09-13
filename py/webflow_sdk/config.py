@@ -1,6 +1,14 @@
 # Webflow SDK configuration
 
 
+# The sekreto plugin DEFINITIONS the model selected per feature, imported
+# above by name from the modules the catalogue's active `plugin.def`
+# entries declare. Handed to each feature (secrets builds its Sekreto
+# with them): a provider kind not listed here is unknown to that SDK.
+FEATURE_PLUGINS = {
+}
+
+
 _shared_config = None
 
 
@@ -74,6 +82,10 @@ def make_config():
             "type": "`$STRING`",
           },
         ],
+        "id": {
+          "field": "id",
+          "name": "id",
+        },
         "name": "collection",
         "op": {
           "list": {
@@ -95,10 +107,16 @@ def make_config():
                 "kind": "http",
                 "method": "GET",
                 "orig": "/sites/{site_id}/collections",
-                "parts": [
-                  "sites",
-                  "{site_id}",
-                  "collections",
+                "segments": [
+                  {
+                    "lit": "sites",
+                  },
+                  {
+                    "var": "site_id",
+                  },
+                  {
+                    "lit": "collections",
+                  },
                 ],
                 "select": {
                   "exist": [
@@ -109,6 +127,11 @@ def make_config():
                   "req": "`reqdata`",
                   "res": "`body.collections`",
                 },
+                "parts": [
+                  "sites",
+                  "{site_id}",
+                  "collections",
+                ],
               },
             ],
           },
@@ -131,15 +154,19 @@ def make_config():
                 "kind": "http",
                 "method": "GET",
                 "orig": "/collections/{collection_id}",
-                "parts": [
-                  "collections",
-                  "{id}",
-                ],
                 "rename": {
                   "param": {
                     "collection_id": "id",
                   },
                 },
+                "segments": [
+                  {
+                    "lit": "collections",
+                  },
+                  {
+                    "var": "id",
+                  },
+                ],
                 "select": {
                   "exist": [
                     "id",
@@ -149,6 +176,10 @@ def make_config():
                   "req": "`reqdata`",
                   "res": "`body`",
                 },
+                "parts": [
+                  "collections",
+                  "{id}",
+                ],
               },
             ],
           },
@@ -184,6 +215,10 @@ def make_config():
             "type": "`$STRING`",
           },
         ],
+        "id": {
+          "field": "id",
+          "name": "id",
+        },
         "name": "item",
         "op": {
           "list": {
@@ -205,10 +240,16 @@ def make_config():
                 "kind": "http",
                 "method": "GET",
                 "orig": "/collections/{collection_id}/items",
-                "parts": [
-                  "collections",
-                  "{collection_id}",
-                  "items",
+                "segments": [
+                  {
+                    "lit": "collections",
+                  },
+                  {
+                    "var": "collection_id",
+                  },
+                  {
+                    "lit": "items",
+                  },
                 ],
                 "select": {
                   "exist": [
@@ -219,6 +260,11 @@ def make_config():
                   "req": "`reqdata`",
                   "res": "`body.items`",
                 },
+                "parts": [
+                  "collections",
+                  "{collection_id}",
+                  "items",
+                ],
               },
             ],
           },
@@ -248,17 +294,25 @@ def make_config():
                 "kind": "http",
                 "method": "GET",
                 "orig": "/collections/{collection_id}/items/{item_id}",
-                "parts": [
-                  "collections",
-                  "{collection_id}",
-                  "items",
-                  "{id}",
-                ],
                 "rename": {
                   "param": {
                     "item_id": "id",
                   },
                 },
+                "segments": [
+                  {
+                    "lit": "collections",
+                  },
+                  {
+                    "var": "collection_id",
+                  },
+                  {
+                    "lit": "items",
+                  },
+                  {
+                    "var": "id",
+                  },
+                ],
                 "select": {
                   "exist": [
                     "collection_id",
@@ -269,6 +323,12 @@ def make_config():
                   "req": "`reqdata`",
                   "res": "`body.fieldData`",
                 },
+                "parts": [
+                  "collections",
+                  "{collection_id}",
+                  "items",
+                  "{id}",
+                ],
               },
             ],
           },
@@ -304,6 +364,10 @@ def make_config():
             "type": "`$STRING`",
           },
         ],
+        "id": {
+          "field": "id",
+          "name": "id",
+        },
         "name": "site",
         "op": {
           "list": {
@@ -315,14 +379,19 @@ def make_config():
                 "kind": "http",
                 "method": "GET",
                 "orig": "/sites",
-                "parts": [
-                  "sites",
+                "segments": [
+                  {
+                    "lit": "sites",
+                  },
                 ],
                 "select": {},
                 "transform": {
                   "req": "`reqdata`",
                   "res": "`body.sites`",
                 },
+                "parts": [
+                  "sites",
+                ],
               },
             ],
           },
@@ -345,15 +414,19 @@ def make_config():
                 "kind": "http",
                 "method": "GET",
                 "orig": "/sites/{site_id}",
-                "parts": [
-                  "sites",
-                  "{id}",
-                ],
                 "rename": {
                   "param": {
                     "site_id": "id",
                   },
                 },
+                "segments": [
+                  {
+                    "lit": "sites",
+                  },
+                  {
+                    "var": "id",
+                  },
+                ],
                 "select": {
                   "exist": [
                     "id",
@@ -363,6 +436,10 @@ def make_config():
                   "req": "`reqdata`",
                   "res": "`body`",
                 },
+                "parts": [
+                  "sites",
+                  "{id}",
+                ],
               },
             ],
           },
